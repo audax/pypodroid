@@ -60,4 +60,8 @@ public class ItemDetailFragment extends Fragment {
 
         return rootView;
     }
+
+    public String getItemUrl() {
+        return mItem.url;
+    }
 }

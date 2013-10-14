@@ -1,10 +1,13 @@
 package de.daxbau.pypodroid;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.NavUtils;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
 
 /**
  * An activity representing a single Item detail screen. This
@@ -16,6 +19,8 @@ import android.view.MenuItem;
  * more than a {@link ItemDetailFragment}.
  */
 public class ItemDetailActivity extends FragmentActivity {
+
+    protected ItemDetailFragment itemDetailFrag;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,10 +45,10 @@ public class ItemDetailActivity extends FragmentActivity {
             Bundle arguments = new Bundle();
             arguments.putString(ItemDetailFragment.ARG_ITEM_ID,
                     getIntent().getStringExtra(ItemDetailFragment.ARG_ITEM_ID));
-            ItemDetailFragment fragment = new ItemDetailFragment();
-            fragment.setArguments(arguments);
+            itemDetailFrag = new ItemDetailFragment();
+            itemDetailFrag.setArguments(arguments);
             getSupportFragmentManager().beginTransaction()
-                    .add(R.id.item_detail_container, fragment)
+                    .add(R.id.item_detail_container, itemDetailFrag)
                     .commit();
         }
     }
@@ -63,5 +68,12 @@ public class ItemDetailActivity extends FragmentActivity {
                 return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    public void openURL(View view) {
+        String url = itemDetailFrag.getItemUrl();
+        Uri webPage = Uri.parse(url);
+        Intent webIntent = new Intent(Intent.ACTION_VIEW, webPage);
+        startActivity(webIntent);
     }
 }

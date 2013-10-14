@@ -10,6 +10,7 @@
     <string name="action_sign_in_register"><b>Sign in</b> or register</string>
     <string name="action_sign_in_short">Sign in</string>
     <!-- From: file:/home/dax/Projects/PypodroidProject/Pypodroid/src/main/res/values/strings.xml -->
+    <string name="action_view_url">Open URL</string>
     <string name="app_name">Pypodroid</string>
     <!-- From: file:/home/dax/Projects/PypodroidProject/Pypodroid/src/main/res/values/strings_activity_login.xml -->
     <string name="error_field_required">This field is required</string>

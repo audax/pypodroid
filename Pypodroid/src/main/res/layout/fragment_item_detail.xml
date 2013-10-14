@@ -41,4 +41,11 @@
         android:layout_gravity="center_horizontal|top"
         android:layout_weight="1" />
 
+    <Button
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/action_view_url"
+        android:id="@+id/button"
+        android:onClick="openURL" />
+
 </LinearLayout>
