@@ -15,6 +15,8 @@ public final class R {
     }
     public static final class id {
         public static final int action_forgot_password=0x7f07000e;
+        public static final int action_search=0x7f07000f;
+        public static final int action_settings=0x7f070010;
         public static final int contentTextView=0x7f07000d;
         public static final int domainTextView=0x7f07000b;
         public static final int email=0x7f070005;
@@ -42,30 +44,37 @@ public final class R {
     }
     public static final class menu {
         public static final int login=0x7f060000;
+        public static final int main_activity_actions=0x7f060001;
     }
     public static final class string {
         /**  From: file:/home/dax/Projects/PypodroidProject/Pypodroid/src/main/res/values/strings_activity_login.xml 
          */
         public static final int action_forgot_password=0x7f040000;
-        public static final int action_sign_in_register=0x7f040001;
-        public static final int action_sign_in_short=0x7f040002;
         /**  From: file:/home/dax/Projects/PypodroidProject/Pypodroid/src/main/res/values/strings.xml 
          */
-        public static final int app_name=0x7f040003;
+        public static final int action_search=0x7f040001;
+        public static final int action_settings=0x7f040002;
         /**  From: file:/home/dax/Projects/PypodroidProject/Pypodroid/src/main/res/values/strings_activity_login.xml 
          */
-        public static final int error_field_required=0x7f040004;
-        public static final int error_incorrect_password=0x7f040005;
-        public static final int error_invalid_email=0x7f040006;
-        public static final int error_invalid_password=0x7f040007;
-        public static final int login_progress_signing_in=0x7f040008;
-        public static final int prompt_email=0x7f040009;
-        public static final int prompt_password=0x7f04000a;
+        public static final int action_sign_in_register=0x7f040003;
+        public static final int action_sign_in_short=0x7f040004;
         /**  From: file:/home/dax/Projects/PypodroidProject/Pypodroid/src/main/res/values/strings.xml 
          */
-        public static final int prompt_pypourl=0x7f04000b;
-        public static final int title_item_detail=0x7f04000c;
-        public static final int title_item_list=0x7f04000d;
+        public static final int app_name=0x7f040005;
+        /**  From: file:/home/dax/Projects/PypodroidProject/Pypodroid/src/main/res/values/strings_activity_login.xml 
+         */
+        public static final int error_field_required=0x7f040006;
+        public static final int error_incorrect_password=0x7f040007;
+        public static final int error_invalid_email=0x7f040008;
+        public static final int error_invalid_password=0x7f040009;
+        public static final int login_progress_signing_in=0x7f04000a;
+        public static final int prompt_email=0x7f04000b;
+        public static final int prompt_password=0x7f04000c;
+        /**  From: file:/home/dax/Projects/PypodroidProject/Pypodroid/src/main/res/values/strings.xml 
+         */
+        public static final int prompt_pypourl=0x7f04000d;
+        public static final int title_item_detail=0x7f04000e;
+        public static final int title_item_list=0x7f04000f;
     }
     public static final class style {
         /**  From: file:/home/dax/Projects/PypodroidProject/Pypodroid/src/main/res/values/styles.xml 

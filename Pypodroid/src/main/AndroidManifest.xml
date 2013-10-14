@@ -17,6 +17,7 @@
             android:name="de.daxbau.pypodroid.LoginActivity"
             android:label="@string/app_name"
             android:windowSoftInputMode="adjustResize|stateVisible" >
+            android:parentActivityName=".ItemListActivity" >
         </activity>
         <activity
             android:name="de.daxbau.pypodroid.ItemListActivity"
