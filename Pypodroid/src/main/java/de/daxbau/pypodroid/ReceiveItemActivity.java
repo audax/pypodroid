@@ -1,5 +1,6 @@
 package de.daxbau.pypodroid;
 
+import android.content.ClipData;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -26,10 +27,26 @@ public class ReceiveItemActivity extends Activity {
             Uri data = intent.getData();
             try {
                 mUrl.setText(data.getHost());
+                openAddPage(data.getHost());
             } catch (NullPointerException e) {
                 finish();
             }
+        } else if (Intent.ACTION_SEND.equals(action)) {
+            ClipData data = intent.getClipData();
+            if (data.getItemCount() >= 1) {
+                ClipData.Item item = data.getItemAt(0);
+                String url = String.valueOf(item.getText());
+                openAddPage(url);
+            }
+
         }
+    }
+
+    private void openAddPage(String host) {
+        Uri webPage = Uri.parse("https://www.daxbau.net/pypo/add");
+        webPage = webPage.buildUpon().appendQueryParameter("url", host).build();
+        Intent webIntent = new Intent(Intent.ACTION_VIEW, webPage);
+        startActivity(webIntent);
     }
 
 
