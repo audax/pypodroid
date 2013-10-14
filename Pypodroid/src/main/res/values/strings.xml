@@ -1,3 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <string name="app_name">Pypodroid</string>
+    <string name="title_item_list">Pypo</string>
+    <string name="title_item_detail">Item Detail</string>
+
 </resources>

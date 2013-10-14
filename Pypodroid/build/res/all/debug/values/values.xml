@@ -15,6 +15,9 @@
     <string name="login_progress_signing_in">Signing in…</string>
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Password</string>
+    <!-- From: file:/home/dax/Projects/PypodroidProject/Pypodroid/src/main/res/values/strings.xml -->
+    <string name="title_item_detail">Item Detail</string>
+    <string name="title_item_list">Pypo</string>
     <!-- From: file:/home/dax/Projects/PypodroidProject/Pypodroid/src/main/res/values/styles.xml -->
     <style name="AppBaseTheme" parent="android:Theme">
         <!--

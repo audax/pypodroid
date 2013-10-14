@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <!-- From: file:/home/dax/Projects/PypodroidProject/Pypodroid/src/main/res/values-large/refs.xml -->
+    <item name="activity_item_list" type="layout">@layout/activity_item_twopane</item>
     <!-- From: file:/home/dax/Projects/PypodroidProject/Pypodroid/src/main/res/values-large/styles.xml -->
     <style name="LoginFormContainer">
         <item name="android:layout_width">400dp</item>
