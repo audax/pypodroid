@@ -14,9 +14,9 @@ public final class R {
         public static final int ic_launcher=0x7f020000;
     }
     public static final class id {
-        public static final int action_forgot_password=0x7f07000d;
-        public static final int contentTextView=0x7f07000c;
-        public static final int domainTextView=0x7f07000a;
+        public static final int action_forgot_password=0x7f07000e;
+        public static final int contentTextView=0x7f07000d;
+        public static final int domainTextView=0x7f07000b;
         public static final int email=0x7f070005;
         public static final int item_detail_container=0x7f070000;
         public static final int item_list=0x7f070001;
@@ -25,9 +25,10 @@ public final class R {
         public static final int login_status=0x7f070002;
         public static final int login_status_message=0x7f070003;
         public static final int password=0x7f070006;
-        public static final int sign_in_button=0x7f070008;
-        public static final int titleTextView=0x7f070009;
-        public static final int urlTextView=0x7f07000b;
+        public static final int pypoUrl=0x7f070008;
+        public static final int sign_in_button=0x7f070009;
+        public static final int titleTextView=0x7f07000a;
+        public static final int urlTextView=0x7f07000c;
     }
     public static final class layout {
         public static final int activity_item_detail=0x7f030000;
@@ -62,8 +63,9 @@ public final class R {
         public static final int prompt_password=0x7f04000a;
         /**  From: file:/home/dax/Projects/PypodroidProject/Pypodroid/src/main/res/values/strings.xml 
          */
-        public static final int title_item_detail=0x7f04000b;
-        public static final int title_item_list=0x7f04000c;
+        public static final int prompt_pypourl=0x7f04000b;
+        public static final int title_item_detail=0x7f04000c;
+        public static final int title_item_list=0x7f04000d;
     }
     public static final class style {
         /**  From: file:/home/dax/Projects/PypodroidProject/Pypodroid/src/main/res/values/styles.xml 

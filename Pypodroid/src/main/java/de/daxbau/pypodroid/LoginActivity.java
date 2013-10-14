@@ -42,10 +42,12 @@ public class LoginActivity extends Activity {
     // Values for email and password at the time of the login attempt.
     private String mEmail;
     private String mPassword;
+    private String mPypoUrl;
 
     // UI references.
     private EditText mEmailView;
     private EditText mPasswordView;
+    private EditText mPypoURLView;
     private View mLoginFormView;
     private View mLoginStatusView;
     private TextView mLoginStatusMessageView;
@@ -72,6 +74,8 @@ public class LoginActivity extends Activity {
                 return false;
             }
         });
+
+        mPypoURLView = (EditText) findViewById(R.id.pypoUrl);
 
         mLoginFormView = findViewById(R.id.login_form);
         mLoginStatusView = findViewById(R.id.login_status);
@@ -110,6 +114,7 @@ public class LoginActivity extends Activity {
         // Store values at the time of the login attempt.
         mEmail = mEmailView.getText().toString();
         mPassword = mPasswordView.getText().toString();
+        mPypoUrl = mPypoURLView.getText().toString();
 
         boolean cancel = false;
         View focusView = null;
@@ -133,6 +138,13 @@ public class LoginActivity extends Activity {
         } else if (!mEmail.contains("@")) {
             mEmailView.setError(getString(R.string.error_invalid_email));
             focusView = mEmailView;
+            cancel = true;
+        }
+
+        // Check for a pypoUrl
+        if (TextUtils.isEmpty(mPypoUrl)) {
+            mPypoURLView.setError(getString(R.string.error_field_required));
+            focusView = mPypoURLView;
             cancel = true;
         }
 

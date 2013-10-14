@@ -3,6 +3,6 @@
 
     <string name="app_name">Pypodroid</string>
     <string name="title_item_list">Pypo</string>
-    <string name="title_item_detail">Item Detail</string>
+    <string name="title_item_detail">Item Detail</string><string name="prompt_pypourl">Pypo URL</string>
 
 </resources>
