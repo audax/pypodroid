@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- From: file:/home/dax/Projects/PypodroidProject/Pypodroid/src/main/res/values/strings_activity_login.xml -->
+    <string name="action_forgot_password">Recover lost password</string>
+    <string name="action_sign_in_register"><b>Sign in</b> or register</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <!-- From: file:/home/dax/Projects/PypodroidProject/Pypodroid/src/main/res/values/strings.xml -->
+    <string name="app_name">Pypodroid</string>
+    <!-- From: file:/home/dax/Projects/PypodroidProject/Pypodroid/src/main/res/values/strings_activity_login.xml -->
+    <string name="error_field_required">This field is required</string>
+    <string name="error_incorrect_password">This password is incorrect</string>
+    <string name="error_invalid_email">This email address is invalid</string>
+    <string name="error_invalid_password">This password is too short</string>
+    <string name="login_progress_signing_in">Signing in…</string>
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password</string>
+    <!-- From: file:/home/dax/Projects/PypodroidProject/Pypodroid/src/main/res/values/styles.xml -->
+    <style name="AppBaseTheme" parent="android:Theme">
+        <!--
+            Theme customizations available in newer API levels can go in
+            res/values-vXX/styles.xml, while customizations related to
+            backward-compatibility can go here.
+        -->
+    </style>
+
+    <style name="AppTheme" parent="AppBaseTheme">
+        <!-- All customizations that are NOT specific to a particular API-level can go here. -->
+    </style>
+
+    <style name="LoginFormContainer">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:padding">16dp</item>
+    </style>
+
+</resources>
