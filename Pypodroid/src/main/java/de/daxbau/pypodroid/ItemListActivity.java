@@ -3,7 +3,6 @@ package de.daxbau.pypodroid;
 import android.content.ClipData;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.media.audiofx.BassBoost;
 import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;

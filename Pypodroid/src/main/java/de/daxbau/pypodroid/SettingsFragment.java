@@ -3,9 +3,6 @@ package de.daxbau.pypodroid;
 import android.os.Bundle;
 import android.preference.PreferenceFragment;
 
-/**
- * Created by dax on 26.11.13.
- */
 public class SettingsFragment extends PreferenceFragment{
 
     @Override

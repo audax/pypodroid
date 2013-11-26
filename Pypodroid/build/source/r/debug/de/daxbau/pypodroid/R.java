@@ -885,15 +885,15 @@ containing a value of this type.
         public static final int action_bar_subtitle=0x7f090021;
         public static final int action_bar_title=0x7f090020;
         public static final int action_context_bar=0x7f09001b;
-        public static final int action_forgot_password=0x7f09004b;
+        public static final int action_forgot_password=0x7f090049;
         public static final int action_menu_divider=0x7f090015;
         public static final int action_menu_presenter=0x7f090016;
         public static final int action_mode_bar=0x7f09002f;
         public static final int action_mode_bar_stub=0x7f09002e;
         public static final int action_mode_close_button=0x7f090022;
-        public static final int action_refresh=0x7f09004d;
-        public static final int action_search=0x7f09004c;
-        public static final int action_settings=0x7f09004e;
+        public static final int action_refresh=0x7f09004b;
+        public static final int action_search=0x7f09004a;
+        public static final int action_settings=0x7f09004c;
         public static final int activity_chooser_view_content=0x7f090023;
         public static final int always=0x7f09000f;
         public static final int beginning=0x7f09000a;
@@ -927,10 +927,8 @@ containing a value of this type.
         public static final int progress_circular=0x7f090034;
         public static final int progress_horizontal=0x7f090035;
         public static final int radio=0x7f09002d;
-        public static final int receivedUrlView=0x7f090049;
         public static final int right_container=0x7f090032;
         public static final int right_icon=0x7f090033;
-        public static final int saveUrlButton=0x7f09004a;
         public static final int search_badge=0x7f090038;
         public static final int search_bar=0x7f090037;
         public static final int search_button=0x7f090039;
@@ -995,8 +993,7 @@ containing a value of this type.
         public static final int activity_item_list=0x7f030019;
         public static final int activity_item_twopane=0x7f03001a;
         public static final int fragment_item_detail=0x7f03001b;
-        public static final int receive_item=0x7f03001c;
-        public static final int support_simple_spinner_dropdown_item=0x7f03001d;
+        public static final int support_simple_spinner_dropdown_item=0x7f03001c;
     }
     public static final class menu {
         public static final int login=0x7f0e0000;

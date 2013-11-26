@@ -7,7 +7,6 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-import de.daxbau.pypodroid.pypo.API;
 import de.daxbau.pypodroid.pypo.Item;
 
 /**
