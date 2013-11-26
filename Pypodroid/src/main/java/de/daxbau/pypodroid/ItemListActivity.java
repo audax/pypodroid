@@ -1,8 +1,10 @@
 package de.daxbau.pypodroid;
 
+import android.content.ClipData;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.media.audiofx.BassBoost;
+import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.FragmentActivity;
@@ -13,6 +15,7 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
 
 import org.apache.http.Header;
 import org.json.JSONArray;
@@ -66,7 +69,69 @@ public class ItemListActivity extends FragmentActivity
             // 'activated' state when touched.
             itemList.setActivateOnItemClick(true);
         }
-        refreshItems();
+
+        Intent intent = getIntent();
+        String action = intent.getAction();
+
+        if (Intent.ACTION_VIEW.equals(action)) {
+            Uri data = intent.getData();
+            try {
+                addItem(data.getHost());
+            } catch (NullPointerException e) {
+                finish();
+            }
+        } else if (Intent.ACTION_SEND.equals(action)) {
+            ClipData data = intent.getClipData();
+            if (data.getItemCount() >= 1) {
+                ClipData.Item item = data.getItemAt(0);
+                String url = String.valueOf(item.getText());
+                addItem(url);
+            }
+
+        } else {
+            refreshItems();
+        }
+    }
+
+    private void addItem(String url) {
+        Log.d("Adding item:", url);
+
+        AsyncHttpResponseHandler handler = new AsyncHttpResponseHandler() {
+
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+
+                Log.d("API:", "success");
+                try {
+                    JSONObject jsonObject = new JSONObject(new String(responseBody));
+                    Log.d("API:", jsonObject.toString());
+                    Toast.makeText(getApplicationContext(),
+                            jsonObject.getString("title"), Toast.LENGTH_LONG).show();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                    Toast.makeText(getApplicationContext(),
+                            R.string.error_api, Toast.LENGTH_LONG).show();
+                }
+                refreshItems();
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+                if (responseBody != null) {
+                    Log.d("API FAILURE:", new String(responseBody));
+                } else {
+                    Log.d("API FAILURE:", String.valueOf(statusCode));
+                }
+                Toast.makeText(getApplicationContext(),
+                        R.string.error_api, Toast.LENGTH_LONG).show();
+                showProgress(false);
+            }
+
+        };
+        login();
+        RequestParams params = new RequestParams();
+        params.add("url", url);
+        API.post("/api/items/", params, handler);
     }
 
     /**
