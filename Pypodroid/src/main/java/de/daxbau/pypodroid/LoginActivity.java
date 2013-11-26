@@ -4,10 +4,12 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
 import android.app.Activity;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.View;
@@ -15,19 +17,24 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.loopj.android.http.JsonHttpResponseHandler;
+import com.loopj.android.http.PersistentCookieStore;
+import com.loopj.android.http.RequestParams;
+
+import org.apache.http.Header;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import de.daxbau.pypodroid.pypo.API;
+import de.daxbau.pypodroid.pypo.Item;
+
 /**
  * Activity which displays a login screen to the user, offering registration as
  * well.
  */
 public class LoginActivity extends Activity {
-    /**
-     * A dummy authentication store containing known user names and passwords.
-     * TODO: remove after connecting to a real authentication system.
-     */
-    private static final String[] DUMMY_CREDENTIALS = new String[]{
-            "foo@example.com:hello",
-            "bar@example.com:world"
-    };
 
     /**
      * The default email to populate the email field with.
@@ -40,7 +47,7 @@ public class LoginActivity extends Activity {
     private UserLoginTask mAuthTask = null;
 
     // Values for email and password at the time of the login attempt.
-    private String mEmail;
+    private String mUsername;
     private String mPassword;
     private String mPypoUrl;
 
@@ -56,12 +63,14 @@ public class LoginActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        API.setCookieStore(new PersistentCookieStore(this));
+
         setContentView(R.layout.activity_login);
 
         // Set up the login form.
-        mEmail = getIntent().getStringExtra(EXTRA_EMAIL);
+        mUsername = getIntent().getStringExtra(EXTRA_EMAIL);
         mEmailView = (EditText) findViewById(R.id.email);
-        mEmailView.setText(mEmail);
+        mEmailView.setText(mUsername);
 
         mPasswordView = (EditText) findViewById(R.id.password);
         mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
@@ -112,7 +121,7 @@ public class LoginActivity extends Activity {
         mPasswordView.setError(null);
 
         // Store values at the time of the login attempt.
-        mEmail = mEmailView.getText().toString();
+        mUsername = mEmailView.getText().toString();
         mPassword = mPasswordView.getText().toString();
         mPypoUrl = mPypoURLView.getText().toString();
 
@@ -124,30 +133,22 @@ public class LoginActivity extends Activity {
             mPasswordView.setError(getString(R.string.error_field_required));
             focusView = mPasswordView;
             cancel = true;
-        } else if (mPassword.length() < 4) {
-            mPasswordView.setError(getString(R.string.error_invalid_password));
-            focusView = mPasswordView;
-            cancel = true;
         }
 
         // Check for a valid email address.
-        if (TextUtils.isEmpty(mEmail)) {
+        if (TextUtils.isEmpty(mUsername)) {
             mEmailView.setError(getString(R.string.error_field_required));
             focusView = mEmailView;
             cancel = true;
-        } else if (!mEmail.contains("@")) {
-            mEmailView.setError(getString(R.string.error_invalid_email));
-            focusView = mEmailView;
-            cancel = true;
         }
-
+        /*
         // Check for a pypoUrl
         if (TextUtils.isEmpty(mPypoUrl)) {
             mPypoURLView.setError(getString(R.string.error_field_required));
             focusView = mPypoURLView;
             cancel = true;
         }
-
+        */
         if (cancel) {
             // There was an error; don't attempt login and focus the first
             // form field with an error.
@@ -157,9 +158,52 @@ public class LoginActivity extends Activity {
             // perform the user login attempt.
             mLoginStatusMessageView.setText(R.string.login_progress_signing_in);
             showProgress(true);
-            mAuthTask = new UserLoginTask();
-            mAuthTask.execute((Void) null);
+            AsyncHttpResponseHandler handler = new AsyncHttpResponseHandler() {
+
+                @Override
+                public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+
+                    try {
+                        JSONArray jsonArray = new JSONArray(new String(responseBody));
+                        Log.d("LOGIN SUCCESS", jsonArray.toString(4));
+                        for (int i=0; i<jsonArray.length(); i++) {
+                            JSONObject row = jsonArray.getJSONObject(i);
+                            Item.addItem(new Item.PypoItem(
+                                    row.getString("id"),
+                                    row.getString("title"),
+                                    row.getString("url"),
+                                    row.getString("readable_article")));
+
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                    startListActivity();
+                }
+
+                @Override
+                public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+                    if (responseBody != null) {
+                        Log.d("LOGIN FAILURE:", new String(responseBody));
+                    } else {
+                        Log.d("LOGIN FAILURE:", String.valueOf(statusCode));
+                    }
+                }
+
+                @Override
+                public void onFinish() {
+                    showProgress(false);
+                    Log.d("LOGIN:", "finish");
+                }
+            };
+            Log.d("LOGIN:", "Starting");
+            API.login(mUsername, mPassword, null, handler);
         }
+    }
+
+    private void startListActivity() {
+        Intent detailIntent = new Intent(this, ItemListActivity.class);
+        startActivity(detailIntent);
     }
 
     /**
@@ -206,36 +250,20 @@ public class LoginActivity extends Activity {
      * Represents an asynchronous login/registration task used to authenticate
      * the user.
      */
-    public class UserLoginTask extends AsyncTask<Void, Void, Boolean> {
+    public class UserLoginTask extends AsyncTask<Void, Void, String> {
         @Override
-        protected Boolean doInBackground(Void... params) {
-            // TODO: attempt authentication against a network service.
-
-            try {
-                // Simulate network access.
-                Thread.sleep(2000);
-            } catch (InterruptedException e) {
-                return false;
-            }
-
-            for (String credential : DUMMY_CREDENTIALS) {
-                String[] pieces = credential.split(":");
-                if (pieces[0].equals(mEmail)) {
-                    // Account exists, return true if the password matches.
-                    return pieces[1].equals(mPassword);
-                }
-            }
-
-            // TODO: register the new account here.
-            return true;
+        protected String doInBackground(Void... params) {
+            Log.d("LOGIN:", "starting");
+            return "foo";
         }
 
         @Override
-        protected void onPostExecute(final Boolean success) {
+        protected void onPostExecute(final String success) {
             mAuthTask = null;
             showProgress(false);
 
-            if (success) {
+            if (success != null) {
+                Log.d("LOGIN RESPONSE:", success);
                 finish();
             } else {
                 mPasswordView.setError(getString(R.string.error_incorrect_password));

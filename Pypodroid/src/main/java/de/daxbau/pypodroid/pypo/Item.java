@@ -23,17 +23,7 @@ public class Item {
      */
     public static Map<String, PypoItem> ITEM_MAP = new HashMap<String, PypoItem>();
 
-    static {
-        // Add 3 sample items.
-        addItem(new PypoItem("1", "Example", "http://www.example.com",
-                "example.com", "Item 1"));
-        addItem(new PypoItem("2", "Google", "http://www.google.com",
-                "google.com", "Item 2"));
-        addItem(new PypoItem("3", "Pypo", "http://www.daxbau.net/pypo",
-                "daxbau.net", "Item 3"));
-    }
-
-    private static void addItem(PypoItem item) {
+    public static void addItem(PypoItem item) {
         ITEMS.add(item);
         ITEM_MAP.put(item.id, item);
     }
@@ -43,16 +33,14 @@ public class Item {
      */
     public static class PypoItem {
         public String id;
-        public String content;
         public String url;
         public String title;
-        public String domain;
+        public String content;
 
-        public PypoItem(String id, String title, String url, String domain, String content) {
+        public PypoItem(String id, String title, String url, String content) {
             this.id = id;
             this.title = title;
             this.url = url;
-            this.domain = domain;
             this.content = content;
         }
 

@@ -15,6 +15,7 @@ repositories {
 dependencies {
 	compile 'com.android.support:support-v4:18.0.0'
 	compile 'com.android.support:appcompat-v7:18.0.0'
+    compile 'com.loopj.android:android-async-http:1.4.4'
 }
 
 android {
