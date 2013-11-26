@@ -48,22 +48,12 @@ public class API {
     }
 
 
-    /**
-     *
-     *
-     * @param username
-     * @param password
-     * @param handler
-     * @throws java.lang.IllegalArgumentException
-     */
-    public static void login(String username, String password, String baseURL,
-                             AsyncHttpResponseHandler handler)
+    public static void login(String username, String password, String baseURL)
     {
         if (baseURL != null) {
             BASE_URL = baseURL;
         }
         client.setBasicAuth(username, password);
-        get("/api/items/", null, handler);
 
     }
 }

@@ -28,6 +28,11 @@ public class Item {
         ITEM_MAP.put(item.id, item);
     }
 
+    public static void clearItems() {
+        ITEMS.clear();
+        ITEM_MAP.clear();
+    }
+
     /**
      * A dummy item representing a piece of content.
      */

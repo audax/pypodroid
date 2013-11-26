@@ -1,11 +1,26 @@
 package de.daxbau.pypodroid;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.media.audiofx.BassBoost;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.app.FragmentActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.Toast;
+
+import com.loopj.android.http.AsyncHttpResponseHandler;
+
+import org.apache.http.Header;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import de.daxbau.pypodroid.pypo.API;
+import de.daxbau.pypodroid.pypo.Item;
 
 
 /**
@@ -37,6 +52,8 @@ public class ItemListActivity extends FragmentActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_item_list);
+        ItemListFragment itemList = ((ItemListFragment) getSupportFragmentManager()
+                .findFragmentById(R.id.item_list));
 
         if (findViewById(R.id.item_detail_container) != null) {
             // The detail container view will be present only in the
@@ -47,12 +64,9 @@ public class ItemListActivity extends FragmentActivity
 
             // In two-pane mode, list items should be given the
             // 'activated' state when touched.
-            ((ItemListFragment) getSupportFragmentManager()
-                    .findFragmentById(R.id.item_list))
-                    .setActivateOnItemClick(true);
+            itemList.setActivateOnItemClick(true);
         }
-
-        // TODO: If exposing deep links into your app, handle intents here.
+        refreshItems();
     }
 
     /**
@@ -100,12 +114,75 @@ public class ItemListActivity extends FragmentActivity
             case R.id.action_settings:
                 openSettings();
                 return true;
+            case R.id.action_refresh:
+                refreshItems();
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
     }
 
     private void openSettings() {
+        Intent settingsIntent = new Intent(this, SettingsActivity.class);
+        startActivity(settingsIntent);
+    }
+
+    private void refreshItems() {
+        showProgress(true);
+        AsyncHttpResponseHandler handler = new AsyncHttpResponseHandler() {
+
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+
+                Log.d("API:", "success");
+                try {
+                    JSONArray jsonArray = new JSONArray(new String(responseBody));
+                    Item.clearItems();
+                    for (int i=0; i<jsonArray.length(); i++) {
+                        JSONObject row = jsonArray.getJSONObject(i);
+                        Log.d("API:", row.getString("title"));
+                        Item.addItem(new Item.PypoItem(
+                                row.getString("id"),
+                                row.getString("title"),
+                                row.getString("url"),
+                                row.getString("readable_article")));
+                    }
+                    ((ItemListFragment) getSupportFragmentManager()
+                            .findFragmentById(R.id.item_list)).refreshItems();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                    Toast.makeText(getApplicationContext(),
+                            R.string.error_api, Toast.LENGTH_LONG).show();
+                }
+                showProgress(false);
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+                if (responseBody != null) {
+                    Log.d("API FAILURE:", new String(responseBody));
+                } else {
+                    Log.d("API FAILURE:", String.valueOf(statusCode));
+                }
+                Toast.makeText(getApplicationContext(),
+                    R.string.error_api, Toast.LENGTH_LONG).show();
+                showProgress(false);
+            }
+
+        };
+        login();
+        API.get("/api/items/", null, handler);
+    }
+
+    private void login() {
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        String username = sharedPreferences.getString(SettingsActivity.KEY_PREF_USERNAME, "");;
+        String password = sharedPreferences.getString(SettingsActivity.KEY_PREF_PASSWORD, "");
+        String baseURL = sharedPreferences.getString(SettingsActivity.KEY_PREF_URL, "");
+        API.login(username, password, baseURL);
+    }
+
+    private void showProgress(boolean b) {
 
     }
 

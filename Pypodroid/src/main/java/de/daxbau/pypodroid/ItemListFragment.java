@@ -38,8 +38,6 @@ public class ItemListFragment extends ListFragment {
      */
     private int mActivatedPosition = ListView.INVALID_POSITION;
 
-    private API api;
-
     /**
      * A callback interface that all activities containing this fragment must
      * implement. This mechanism allows activities to be notified of item
@@ -67,14 +65,16 @@ public class ItemListFragment extends ListFragment {
      * fragment (e.g. upon screen orientation changes).
      */
     public ItemListFragment() {
-        this.api = new API();
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // TODO: replace with a real list adapter.
+        refreshItems();
+    }
+
+    public void refreshItems() {
         setListAdapter(new ArrayAdapter<Item.PypoItem>(
                 getActivity(),
                 android.R.layout.simple_list_item_activated_1,

@@ -9,6 +9,16 @@
     <string name="action_search">Search</string>
     <string name="action_view_url">Open URL</string>
     <string name="title_activity_receive_item">Receive shared item</string>
-    <string name="hello_world">Hello world!</string><string name="action_save_url">Save URL</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_save_url">Save URL</string>
+    <string name="action_refresh">Refresh</string>
+    <string name="title_activity_settings">MainActivity</string>
+    <string name="pref_username">Username</string>
+    <string name="pref_summary_username">Username for your pypo instance</string>
+    <string name="pref_password">Password</string>
+    <string name="pref_summary_password">Password for your pypo instance</string>
+    <string name="pref_pypo_url">Address of your pypo instance</string>
+    <string name="pref_summary_pypo_url">Address of your pypo instance without a trailing slash</string>
+    <string name="error_api">Could not connect to the API, check your settings!</string>
 
 </resources>

@@ -165,7 +165,7 @@ public class LoginActivity extends Activity {
 
                     try {
                         JSONArray jsonArray = new JSONArray(new String(responseBody));
-                        Log.d("LOGIN SUCCESS", jsonArray.toString(4));
+                        Item.clearItems();
                         for (int i=0; i<jsonArray.length(); i++) {
                             JSONObject row = jsonArray.getJSONObject(i);
                             Item.addItem(new Item.PypoItem(
@@ -197,7 +197,7 @@ public class LoginActivity extends Activity {
                 }
             };
             Log.d("LOGIN:", "Starting");
-            API.login(mUsername, mPassword, null, handler);
+            API.login(mUsername, mPassword, null);
         }
     }
 
