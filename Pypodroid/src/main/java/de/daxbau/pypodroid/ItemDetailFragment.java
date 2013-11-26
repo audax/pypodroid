@@ -5,6 +5,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebView;
 import android.widget.TextView;
 
 import de.daxbau.pypodroid.pypo.Item;
@@ -53,9 +54,8 @@ public class ItemDetailFragment extends Fragment {
 
         // Show the dummy content as text in a TextView.
         if (mItem != null) {
-            ((TextView) rootView.findViewById(R.id.titleTextView)).setText(mItem.title);
-            ((TextView) rootView.findViewById(R.id.urlTextView)).setText(mItem.url);
-            ((TextView) rootView.findViewById(R.id.contentTextView)).setText(mItem.content);
+            ((WebView) rootView.findViewById(R.id.contentTextView))
+                    .loadData(mItem.content, "text/html; charset=UTF-8", null);
         }
 
         return rootView;

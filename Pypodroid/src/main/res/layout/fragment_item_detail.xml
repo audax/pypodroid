@@ -5,38 +5,9 @@
     android:baselineAligned="false"
     android:orientation="vertical">
 
-    <TextView
+    <WebView
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Title"
-        android:id="@+id/titleTextView"
-        android:layout_gravity="center_horizontal|top"
-        android:layout_weight="1" />
-
-    <TextView
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Domain"
-        android:id="@+id/domainTextView"
-        android:layout_gravity="center_horizontal|top"
-        android:layout_weight="1" />
-
-    <TextView
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="URL"
-        android:id="@+id/urlTextView"
-        android:layout_gravity="center_horizontal|top"
-        android:layout_weight="1" />
-
-    <TextView
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Content"
+        android:layout_height="fill_parent"
         android:id="@+id/contentTextView"
         android:layout_gravity="center_horizontal|top"
         android:layout_weight="1" />
