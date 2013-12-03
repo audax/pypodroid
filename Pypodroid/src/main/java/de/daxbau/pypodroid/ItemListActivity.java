@@ -205,6 +205,7 @@ public class ItemListActivity extends FragmentActivity
                     for (int i=0; i<jsonArray.length(); i++) {
                         JSONObject row = jsonArray.getJSONObject(i);
                         Log.d("API:", row.getString("title"));
+                        // FIXME: bad usage of a global value
                         Item.addItem(new Item.PypoItem(
                                 row.getString("id"),
                                 row.getString("title"),
@@ -214,9 +215,11 @@ public class ItemListActivity extends FragmentActivity
                     ((ItemListFragment) getSupportFragmentManager()
                             .findFragmentById(R.id.item_list)).refreshItems();
                 } catch (JSONException e) {
-                    e.printStackTrace();
+                    Log.d("API FAILURE", e.toString());
+                    String errorMsg = getResources().getString(R.string.error_api);
+                    errorMsg += " Response: " + new String(responseBody);
                     Toast.makeText(getApplicationContext(),
-                            R.string.error_api, Toast.LENGTH_LONG).show();
+                            errorMsg, Toast.LENGTH_LONG).show();
                 }
                 showProgress(false);
             }
@@ -224,12 +227,17 @@ public class ItemListActivity extends FragmentActivity
             @Override
             public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
                 if (responseBody != null) {
-                    Log.d("API FAILURE:", new String(responseBody));
+                    Log.d("API FAILURE", new String(responseBody));
                 } else {
-                    Log.d("API FAILURE:", String.valueOf(statusCode));
+                    Log.d("API FAILURE", String.valueOf(statusCode));
+                }
+                String errorMsg = getResources().getString(R.string.error_api);
+                if (error != null) {
+                    Log.d("API FAILURE", error.toString());
+                    errorMsg += " : " + error.toString();
                 }
                 Toast.makeText(getApplicationContext(),
-                    R.string.error_api, Toast.LENGTH_LONG).show();
+                        errorMsg, Toast.LENGTH_LONG).show();
                 showProgress(false);
             }
 
