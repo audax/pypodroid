@@ -9,10 +9,12 @@
     <EditTextPreference
         android:key="pref_key_password"
         android:title="@string/pref_password"
+        android:inputType="textPassword"
         android:summary="@string/pref_summary_password"
         />
     <EditTextPreference
         android:key="pref_key_pypo_url"
+        android:inputType="textUri"
         android:title="@string/pref_pypo_url"
         android:summary="@string/pref_summary_pypo_url"
         />
